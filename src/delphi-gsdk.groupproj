@@ -9,6 +9,9 @@
         <Projects Include="KnightRider.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="Bomber.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="KnightRider:Make">
         <MSBuild Projects="KnightRider.dproj" Targets="Make"/>
     </Target>
+    <Target Name="Bomber">
+        <MSBuild Projects="Bomber.dproj"/>
+    </Target>
+    <Target Name="Bomber:Clean">
+        <MSBuild Projects="Bomber.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Bomber:Make">
+        <MSBuild Projects="Bomber.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi;KnightRider"/>
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi;KnightRider;Bomber"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Clean;KnightRider:Clean"/>
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Clean;KnightRider:Clean;Bomber:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Make;KnightRider:Make"/>
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Make;KnightRider:Make;Bomber:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
