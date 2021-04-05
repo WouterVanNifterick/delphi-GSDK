@@ -11,7 +11,7 @@ uses
 const
   KEYS = 12;
 
-procedure Init;
+procedure TryInit;
 begin
   // Initialize the LED SDK
   if LogiLedInitWithName('SetTargetZone Sample Delphi') then
@@ -21,50 +21,49 @@ begin
   Halt;
 end;
 
-procedure Clear;
+procedure ClearAll;
 begin
   LogiLedSetTargetDevice(LOGI_DEVICETYPE_ALL);
   LogiLedSetLighting(clBlack);
 end;
 
-function Triangle(x, w:integer):integer;
+function Triangle(x, w: integer): integer;
 begin
   Result := abs((x mod w) - w div 2);
 end;
 
+
+procedure Animate(aSeconds:integer);
 var
-  t0:TDateTime;
-  t:integer;
-  key:integer;
-  highlightPos:integer;
-  distToHighlight:integer;
-  c : Integer;
+  t0             : TDateTime;
+  t              : integer;
+  key            : integer;
+  highlightPos   : integer;
+  distToHighlight: integer;
+  color          : integer;
 begin
-  Init;
-  Clear;
-
+  ClearAll;
   t0 := now;
-  t := 0;
-
-  while now - t0 < oneSecond * 5 do
+  t  := 0;
+  while now - t0 < oneSecond * aSeconds do
   begin
     inc(t);
     highlightPos := Triangle(t, KEYS * 2);
-    Write('[',highlightPos,'] ');
-    for key := 0 to KEYS-1 do
+    for key := 0 to KEYS - 1 do
     begin
-      distToHighlight := Abs(key - highlightPos);
-      c := 100 - Trunc(200 * distToHighlight / KEYS);
-      if c < 50 then
-        c := 0;
-      Write(Format('%.03d ',[ c ]));
-    LogiLedSetLightingForKeyWithKeyName(TKeyName(2 + key), c, 0, c div 16);
+      distToHighlight := abs(key - highlightPos);
+      color := 100 - Trunc(200 * distToHighlight / KEYS);
+      LogiLedSetLightingForKeyWithKeyName(TKeyName(2 + key), color, 0, color div 16);
     end;
-    Writeln;
     Sleep(25);
   end;
+end;
 
-  WriteLn('Press "ENTER" to continue...');
-  Readln;
+begin
+  TryInit;
+
+  Animate(5);
+
   LogiLedShutdown;
+
 end.
