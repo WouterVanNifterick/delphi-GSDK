@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{E06BFCB6-0398-4EC4-9EDE-08CE4CDA9D85}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="Logi_SetTargetZone_Sample_Delphi.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="KnightRider.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="Logi_SetTargetZone_Sample_Delphi">
+        <MSBuild Projects="Logi_SetTargetZone_Sample_Delphi.dproj"/>
+    </Target>
+    <Target Name="Logi_SetTargetZone_Sample_Delphi:Clean">
+        <MSBuild Projects="Logi_SetTargetZone_Sample_Delphi.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Logi_SetTargetZone_Sample_Delphi:Make">
+        <MSBuild Projects="Logi_SetTargetZone_Sample_Delphi.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="KnightRider">
+        <MSBuild Projects="KnightRider.dproj"/>
+    </Target>
+    <Target Name="KnightRider:Clean">
+        <MSBuild Projects="KnightRider.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="KnightRider:Make">
+        <MSBuild Projects="KnightRider.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi;KnightRider"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Clean;KnightRider:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="Logi_SetTargetZone_Sample_Delphi:Make;KnightRider:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
